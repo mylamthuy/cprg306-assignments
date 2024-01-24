@@ -1,11 +1,16 @@
 import Link from "next/link";
 
 export default function StudentInfo() {
-    let name = "Thuy My Lam";
+    let studentName = "Thuy My Lam";
     return (
-    <div>
-      <p>{name}</p>
-      <Link href="https://github.com/mylamthuy">GitHub link</Link>
-    </div>
+    <main>
+      <p>{studentName}</p>
+      <p>
+        <Link href="https://github.com/mylamthuy">GitHub link</Link>
+      </p>
+      <p>
+        <Link href="../">Home</Link>
+      </p>
+    </main>
   );
 }
