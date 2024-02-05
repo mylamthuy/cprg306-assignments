@@ -76,8 +76,8 @@ export default function ItemList(){
       const itemNumbers= ["item1",2,3,4,5,6,7,8,9,10,11,12];
       return(
         <div>
-            <Item name={item1.name} quantity={item1.quantity} category={item1.category} />
-            <Item name={item2.name} quantity={item2.quantity} category={item2.category} />
+            <Item {...item1} />
+            <Item {...item2} />
             <Item {...item3} />
             <Item {...item4} />
             <Item {...item5} />
