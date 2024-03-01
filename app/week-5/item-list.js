@@ -17,8 +17,8 @@ export default function ItemList(){
 
     const renderItems = () => {
         return sortedItems.map((item) =>
-        <li>
-            <Item prop={item} key={item.id}></Item>
+        <li key={item.id}>
+            <Item prop={item}></Item>
         </li>
         )}
 
