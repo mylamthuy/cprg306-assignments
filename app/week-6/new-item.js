@@ -21,9 +21,7 @@ export default function NewItem ({onAddItem}){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        //const newId = Math.random().toString(36).substring(2,9);
         const item = {id: generateRandomId(), name, quantity, category};
-        //console.log(item);
 
         onAddItem(item);
 
@@ -47,7 +45,7 @@ export default function NewItem ({onAddItem}){
     return (
         <>
             <div className="flex items-center justify-start">
-                <div className="w-full max-w-md p-2 mt-4">
+                <div className="w-full max-w-md p-2 mt-4 ml-2">
                     <h3 className="text-xl font-bold mb-4">Add New Item</h3>
                     <form onSubmit={handleSubmit}>
                     <input

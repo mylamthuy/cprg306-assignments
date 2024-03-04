@@ -10,7 +10,6 @@ export default function Page(){
     const handleAddItem = (newItem) => {
         setItems( prevItems => [...prevItems, newItem]);
     };
-    //bg-blue-800/20
 
     return (
         <main className="m-2 p-2 bg-slate-950">
