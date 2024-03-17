@@ -1,4 +1,5 @@
 'use client';
+import { useUserAuth } from "../_utils/auth-context";
 import {useState} from "react";
 
 import ItemList from "./item-list";
@@ -7,6 +8,15 @@ import itemsData from "./items.json";
 import MealIdeas from "./meal-ideas";
 
 export default function Page(){
+    const { user } = useUserAuth();
+
+    if (!user) {
+        return (
+            <div>
+                <p>You need to be signed in to view this page.</p>
+            </div>
+        )
+    }
     const [items, setItems] = useState(itemsData);
     const [selectedItemName, setSelectedItemName] = useState(' ');
 
@@ -22,7 +32,7 @@ export default function Page(){
     }
 
     return (
-        <main className="m-2 p-2 bg-slate-950">
+        <div className="m-2 p-2 bg-slate-950">
             <h1 className="text-3xl font-bold m-2">Shopping List</h1>
             <div className="flex">
                 <div className="flex-1 max-w-sm m-2">
@@ -33,6 +43,6 @@ export default function Page(){
                     <MealIdeas ingredient={selectedItemName}/>
                 </div>
             </div>
-        </main>
+        </div>
     )
 }
