@@ -28,7 +28,10 @@ export default function MealIdeas({ingredient}) {
         }
     }
 
-    useEffect (() => {loadMealsIdeas()}, [ingredient]);
+    useEffect(() => {
+        if (ingredient === "") return;
+        loadMealsIdeas(ingredient);
+    }, [ingredient]);
 
 
     return (
