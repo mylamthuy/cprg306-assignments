@@ -1,24 +1,36 @@
 import { db } from "../_utils/firebase";
-import { collection, getDocs, addDoc, query } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDoc,
+  onSnapshot,
+  query,
+  doc,
+  where,
+} from "firebase/firestore";
 
 
 // retrieve all items for a specific user
-export const getItems = async (userId) => {
+  export const getItems = (userId, onUpdate) => {
     try {
       const userItemCollectionRef = collection(db, "users", userId, "items");
-      const userItemSnapshot = await getDocs(userItemCollectionRef);
   
-      const items = userItemSnapshot.docs.map((userItemDoc) => ({
-        id: userItemDoc.id,
-        ...userItemDoc.data(),
-      }));
+      const unsubscribe = onSnapshot(userItemCollectionRef, (snapshot) => {
+        const items = snapshot.docs.map((userItemDoc) => ({
+          id: userItemDoc.id,
+          ...userItemDoc.data(),
+        }));
+        onUpdate(items);
+      });
   
-      return items;
-
-    } catch (fetchUserItemError) {
-      console.error("Error in getItems: ", fetchUserItemError);
+      return unsubscribe;
+    } catch (error) {
+      console.error("Error in getItems: ", error);
+      // Handle the error by calling onUpdate with an empty array or other error handling logic
+      onUpdate([]);
     }
   };
+
 
 // add a new item to a specific user's list of items
 export const addItem = async (userId, item) => {

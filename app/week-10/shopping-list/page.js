@@ -10,15 +10,16 @@ import {getItems, addItem} from "../_service/shopping-list-service";
 export default function Page(){
     const { user } = useUserAuth();
 
-    if (!user) {
-        return (
-            <div>
-                <p>You need to be signed in to view this page.</p>
-            </div>
-        )
-    }
     const [items, setItems] = useState([]);
     const [selectedItemName, setSelectedItemName] = useState(' ');
+    
+    useEffect(() => {
+        console.log("useEffect executed");
+        const unsubscribe = getItems(user.uid, setItems);
+        return () => unsubscribe();
+      }, []);
+
+    console.log("user: ", user, "user id: ", user.uid)
     
     const handleItemSelect = (item) => {
         var itemName = item.name.toLowerCase();
@@ -27,18 +28,26 @@ export default function Page(){
         setSelectedItemName(itemName);        
     }
 
-    useEffect(() => {
-        const loadItems = async () => {
-            const items = await getItems(user.uid);
-            setItems(items);
-        };
-        loadItems();
-      }, [user, items]);
+            //console.log("useEffect executed")
+        // const loadItems = async () => {
+        //     const items = await getItems(user.uid);
+        //     setItems(items);
+        // };
+        // loadItems();
+
 
     const handleAddItem = (item) => {
         addItem(user.uid, item);
     }
+console.log("render item: ", items)
 
+if (!user) {
+    return (
+        <div>
+            <p>You need to be signed in to view this page.</p>
+        </div>
+    )
+}
 
     return (
         <div className="m-2 p-2 bg-slate-950">
